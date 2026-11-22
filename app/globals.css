@@ -1,0 +1,56 @@
+@import "tailwindcss";
+
+@theme {
+  --color-pine: #143f39;
+  --color-leaf: #429872;
+  --color-ink: #1a1a1a;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+/* One entrance on load */
+@keyframes enter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+.enter {
+  animation: enter 700ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+/* Slow float for background pieces */
+@keyframes drift {
+  50% {
+    transform: translateY(var(--drift, 8px));
+  }
+}
+.drift {
+  animation: drift 9s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  50% {
+    opacity: 0.3;
+  }
+}
+.pulse-dot {
+  animation: pulse-dot 1.6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .enter,
+  .drift,
+  .pulse-dot {
+    animation: none;
+  }
+}
