@@ -1,16 +1,16 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { createServerSupabase } from "@/lib/supabase/server";
+import { absoluteUrl } from "@/lib/base-url";
 
-// Google sign-in returns here (via Supabase) with ?code=...
+// Google / GitHub sign-in returns here (via Supabase) with ?code=...
 export async function GET(request: NextRequest) {
-  const { searchParams, origin } = request.nextUrl;
-  const code = searchParams.get("code");
+  const code = request.nextUrl.searchParams.get("code");
 
   if (code) {
     const supabase = await createServerSupabase();
     const { error } = await supabase.auth.exchangeCodeForSession(code);
-    if (!error) return NextResponse.redirect(`${origin}/profile`);
+    if (!error) return NextResponse.redirect(absoluteUrl("/profile"));
   }
 
-  return NextResponse.redirect(`${origin}/login`);
+  return NextResponse.redirect(absoluteUrl("/login?error=oauth"));
 }

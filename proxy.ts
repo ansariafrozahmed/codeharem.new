@@ -1,5 +1,6 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
+import { absoluteUrl } from "@/lib/base-url";
 
 const PROTECTED = ["/profile"];
 const AUTH_PAGES = ["/login"];
@@ -36,10 +37,7 @@ export async function proxy(request: NextRequest) {
 
   const path = request.nextUrl.pathname;
   const redirectTo = (to: string) => {
-    const url = request.nextUrl.clone();
-    url.pathname = to;
-    url.search = "";
-    const res = NextResponse.redirect(url);
+    const res = NextResponse.redirect(absoluteUrl(to));
     response.cookies.getAll().forEach((c) => res.cookies.set(c));
     return res;
   };

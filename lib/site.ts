@@ -1,9 +1,8 @@
 // One place for site-wide SEO details.
+import { BASE_URL } from "@/lib/base-url";
 
-/** Public URL of the site, e.g. https://codeharem.com (set NEXT_PUBLIC_SITE_URL in production). */
-export const SITE_URL = (
-  process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"
-).replace(/\/$/, "");
+/** Public URL of the site, from NEXT_PUBLIC_BASE_URL */
+export const SITE_URL = BASE_URL;
 
 export const SITE = {
   name: "CodeHarem",
