@@ -1,15 +1,23 @@
 @import "tailwindcss";
 
-@theme {
-  --color-pine: #143f39;
-  --color-leaf: #429872;
-  --color-ink: #1a1a1a;
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+:root {
+  --background: #131413;
+  --surface: #202423;
+  --foreground: #ffffff;
+  --header-h: 76px; /* sticky header height; sidebars sit below it */
 }
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Palette as Tailwind colours: bg-background, bg-surface, text-foreground, bg-pine, text-leaf… */
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-foreground: var(--foreground);
+  --color-pine: #143f39;
+  --color-leaf: #429872;
+  /* Radius scale: rounded-action for anything clickable, rounded-card for containers */
+  --radius-action: 6px;
+  --radius-card: 8px;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 }
 
 body {
@@ -52,5 +60,46 @@ body {
   .drift,
   .pulse-dot {
     animation: none;
+  }
+}
+
+/* ---------- Project canvas (React Flow) ---------- */
+.project-canvas {
+  --xy-background-color: transparent;
+  --xy-minimap-background-color: #181b1a;
+  --xy-minimap-mask-background-color: rgba(19, 20, 19, 0.65);
+  --xy-minimap-mask-stroke-color: rgba(66, 152, 114, 0.6);
+  --xy-minimap-mask-stroke-width: 1;
+  --xy-selection-background-color: rgba(66, 152, 114, 0.08);
+  --xy-selection-border: 1px dashed rgba(66, 152, 114, 0.7);
+  --xy-node-boxshadow-selected: none;
+  --xy-attribution-background-color: transparent;
+}
+.project-canvas .react-flow__node {
+  border: 0;
+  background: transparent;
+  padding: 0;
+}
+.project-canvas .react-flow__attribution a {
+  color: rgba(255, 255, 255, 0.25);
+}
+/* grab hand on the empty board, grabbing while panning */
+.project-canvas .react-flow__pane {
+  cursor: grab;
+}
+.project-canvas .react-flow__pane.dragging,
+.project-canvas .react-flow__pane:active {
+  cursor: grabbing;
+}
+/* Bigger grab targets on touch screens */
+@media (pointer: coarse) {
+  .project-canvas .react-flow__handle {
+    width: 18px !important;
+    height: 18px !important;
+    opacity: 1 !important;
+  }
+  .project-canvas .react-flow__resize-control.handle {
+    width: 16px !important;
+    height: 16px !important;
   }
 }

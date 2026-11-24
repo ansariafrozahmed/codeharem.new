@@ -76,7 +76,7 @@ function Piece({
   );
 }
 
-const card = "rounded-lg bg-[#202423]/90 ring-1 ring-white/10 shadow-[0_20px_40px_-20px_rgba(0,0,0,0.8)]";
+const card = "rounded-card bg-surface/90 ring-1 ring-white/10 shadow-[0_20px_40px_-20px_rgba(0,0,0,0.8)]";
 const label = " text-[10px] tracking-[0.14em] text-white/45 uppercase";
 
 function Palette() {
@@ -84,7 +84,7 @@ function Palette() {
   return (
     <div className={`${card} w-56 p-3`}>
       <div className={label}>Palette</div>
-      <div className="mt-2 flex h-9 overflow-hidden rounded">
+      <div className="mt-2 flex h-9 overflow-hidden rounded-card">
         {colors.map((c) => (
           <div key={c} className="flex-1" style={{ background: c }} />
         ))}
@@ -102,14 +102,14 @@ function ClientMessage() {
   return (
     <div className="w-64">
       <div className="mb-1.5 flex items-center gap-2 text-[10px] text-white/45">
-        <span className="size-1.5 rounded-full bg-leaf" />
+        <span className="size-1.5 rounded-xs bg-leaf" />
         Client · WhatsApp · 10:42
       </div>
-      <div className="rounded-lg rounded-tl-none bg-[#1f3a33] px-3.5 py-2.5 text-[13px] leading-snug text-white/90 ring-1 ring-leaf/25">
+      <div className="rounded-card rounded-tl-none bg-[#1f3a33] px-3.5 py-2.5 text-[13px] leading-snug text-white/90 ring-1 ring-leaf/25">
         Can the booking form send a copy to reception too?
       </div>
       <div className="mt-2 flex justify-end">
-        <span className="rounded bg-leaf/15 px-1.5 py-0.5 text-[10px] text-leaf">
+        <span className="rounded-action bg-leaf/15 px-1.5 py-0.5 text-[10px] text-leaf">
           saved → Booking form
         </span>
       </div>
@@ -137,7 +137,7 @@ function SitemapTree() {
         {rows.map(([name, s]) => (
           <li key={name} className="flex items-center justify-between text-[11.5px] text-white/65">
             {name}
-            <span className={`size-2 rounded-full ${dot[s]}`} />
+            <span className={`size-2 rounded-xs ${dot[s]}`} />
           </li>
         ))}
       </ul>
@@ -154,7 +154,7 @@ function ProgressCard() {
       </div>
       <div className="mt-2.5 flex gap-1">
         {Array.from({ length: 9 }, (_, i) => (
-          <div key={i} className={`h-1.5 flex-1 rounded-full ${i < 6 ? "bg-leaf" : i === 6 ? "bg-white/60" : "bg-white/10"}`} />
+          <div key={i} className={`h-1.5 flex-1 rounded-xs ${i < 6 ? "bg-leaf" : i === 6 ? "bg-white/60" : "bg-white/10"}`} />
         ))}
       </div>
       <div className="mt-2 text-[10px] text-white/40">sections done</div>

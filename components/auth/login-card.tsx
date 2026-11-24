@@ -2,8 +2,15 @@
 
 import Link from "next/link";
 import { useState, type ReactNode } from "react";
-import { signInWithProvider, type OAuthProvider } from "../actions";
+import { signInWithProvider, type OAuthProvider } from "@/actions/auth";
 import Image from "next/image";
+import {
+  Check,
+  LoaderCircle,
+  MessagesSquare,
+  Network,
+  Palette,
+} from "lucide-react";
 
 const BUTTONS: {
   provider: OAuthProvider;
@@ -26,9 +33,15 @@ const BUTTONS: {
 ];
 
 const FEATURES = [
-  "Client requirements and chats saved per project",
-  "Sitemap pages and sections marked done, working or pending",
-  "Palettes, research and references next to the work",
+  {
+    Icon: MessagesSquare,
+    text: "Client requirements and chats saved per project",
+  },
+  {
+    Icon: Network,
+    text: "Sitemap pages and sections marked done, working or pending",
+  },
+  { Icon: Palette, text: "Palettes, research and references next to the work" },
 ];
 
 export function LoginCard({ error }: { error?: ReactNode }) {
@@ -37,7 +50,7 @@ export function LoginCard({ error }: { error?: ReactNode }) {
 
   return (
     <div className="enter w-full max-w-[520px]">
-      <div className="relative overflow-hidden rounded-xl bg-[#171b1a] px-6 py-10 ring-1 ring-white/10 backdrop-blur-xl sm:px-9 sm:py-12">
+      <div className="relative overflow-hidden rounded-card bg-background px-6 py-10 ring-1 ring-white/10 backdrop-blur-xl sm:px-9 sm:py-12">
         {/* top light inside the card */}
         {/* <div
           aria-hidden
@@ -49,14 +62,15 @@ export function LoginCard({ error }: { error?: ReactNode }) {
         /> */}
 
         <div className="relative">
-          {/* <Mark /> */}
-          <Image
-            src="/weblogo.webp"
-            alt="CodeHarem Logo"
-            width={200}
-            className="h-7 w-auto object-contain"
-            height={100}
-          />
+          <Link href="/" className="inline-block">
+            <Image
+              src="/weblogo.webp"
+              alt="CodeHarem Logo"
+              width={200}
+              className="h-7 w-auto object-contain"
+              height={100}
+            />
+          </Link>
 
           <p className="mt-6 md:mt-8 text-[10px] md:text-[11px] tracking-[0.12em] text-leaf uppercase">
             Welcome to CodeHarem
@@ -70,26 +84,18 @@ export function LoginCard({ error }: { error?: ReactNode }) {
             and track each build from one workspace.
           </p>
 
-          <ul className="mt-5 lg:mt-7 space-y-2.5 border-t border-white/[0.07] pt-6">
-            {FEATURES.map((f) => (
+          <ul className="mt-5 lg:mt-7 space-y-3 border-t border-white/[0.07] pt-6">
+            {FEATURES.map(({ Icon, text }) => (
               <li
-                key={f}
-                className="flex gap-2 md:gap-3 text-[10px] md:text-[12px] font-normal md:tracking-wide leading-snug text-white/80"
+                key={text}
+                className="flex items-start gap-2 md:gap-3 text-[10px] md:text-[12px] font-normal md:tracking-wide leading-snug text-white/80"
               >
-                <span className="mt-px grid size-[14px] md:size-[18px] shrink-0 place-items-center rounded-full bg-leaf/15 text-leaf ring-1 ring-leaf/30">
-                  <svg
-                    width="9"
-                    height="9"
-                    viewBox="0 0 12 12"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2.2"
-                    aria-hidden="true"
-                  >
-                    <path d="M2 6.5l2.5 2.5L10 3.5" />
-                  </svg>
-                </span>
-                {f}
+                <Icon
+                  aria-hidden
+                  strokeWidth={1.75}
+                  className="mt-px size-3.5 shrink-0 text-leaf md:size-4"
+                />
+                {text}
               </li>
             ))}
           </ul>
@@ -107,19 +113,14 @@ export function LoginCard({ error }: { error?: ReactNode }) {
             />
             <span
               aria-hidden
-              className="mt-px grid size-[18px] shrink-0 place-items-center rounded-[5px] ring-1 ring-white/25 transition peer-checked:bg-leaf peer-checked:ring-leaf peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-leaf"
+              className="mt-px grid size-[18px] shrink-0 place-items-center rounded-action ring-1 ring-white/25 transition peer-checked:bg-leaf peer-checked:ring-leaf peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-leaf"
             >
               {agreed && (
-                <svg
-                  width="10"
-                  height="10"
-                  viewBox="0 0 12 12"
-                  fill="none"
-                  stroke="white"
-                  strokeWidth="2.4"
-                >
-                  <path d="M2 6.5l2.5 2.5L10 3.5" />
-                </svg>
+                <Check
+                  aria-hidden
+                  strokeWidth={3}
+                  className="size-3 text-white"
+                />
               )}
             </span>
             <span>
@@ -152,9 +153,9 @@ export function LoginCard({ error }: { error?: ReactNode }) {
                   <button
                     type="submit"
                     disabled={disabled}
-                    className={`group flex h-12 w-full items-center justify-center gap-3 rounded-lg text-[13px] md:text-[15px] font-medium transition duration-150 enabled:hover:-translate-y-px enabled:active:translate-y-0 enabled:active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-leaf disabled:cursor-not-allowed ${
+                    className={`group flex h-12 w-full items-center justify-center gap-3 rounded-action text-[13px] md:text-[15px] font-medium transition duration-150 enabled:hover:-translate-y-px enabled:active:translate-y-0 enabled:active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-leaf disabled:cursor-not-allowed ${
                       primary
-                        ? "bg-white text-ink enabled:hover:bg-[#eef6f1] disabled:bg-white/50"
+                        ? "bg-white text-background enabled:hover:bg-[#eef6f1] disabled:bg-white/50"
                         : "bg-white/[0.05] text-white ring-1 ring-white/15 enabled:hover:bg-white/[0.09] enabled:hover:ring-white/25 disabled:text-white/50"
                     }`}
                   >
@@ -178,38 +179,8 @@ export function LoginCard({ error }: { error?: ReactNode }) {
   );
 }
 
-function Mark() {
-  return (
-    <div className="flex items-center gap-2.5">
-      <span
-        aria-hidden
-        className="grid size-8 grid-cols-2 gap-[3px] rounded-md bg-white/[0.06] p-[7px] ring-1 ring-white/10"
-      >
-        <span className="rounded-[2px] bg-leaf" />
-        <span className="rounded-[2px] bg-leaf" />
-        <span className="rounded-[2px] bg-leaf" />
-        <span className="rounded-[2px] bg-white/25" />
-      </span>
-      <span className="text-[15px] font-semibold tracking-tight">
-        codeharem
-      </span>
-    </div>
-  );
-}
-
 function Spinner() {
-  return (
-    <svg
-      className="size-5 animate-spin"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      aria-hidden="true"
-    >
-      <path d="M21 12a9 9 0 1 1-6.219-8.56" />
-    </svg>
-  );
+  return <LoaderCircle aria-hidden className="size-5 animate-spin" />;
 }
 
 function GoogleIcon() {

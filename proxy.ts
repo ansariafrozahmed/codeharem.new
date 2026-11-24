@@ -1,7 +1,7 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
-const PROTECTED = ["/dashboard"];
+const PROTECTED = ["/profile"];
 const AUTH_PAGES = ["/login"];
 
 export async function proxy(request: NextRequest) {
@@ -48,7 +48,7 @@ export async function proxy(request: NextRequest) {
     return redirectTo("/login");
   }
   if (user && AUTH_PAGES.includes(path)) {
-    return redirectTo("/dashboard");
+    return redirectTo("/profile");
   }
 
   return response;

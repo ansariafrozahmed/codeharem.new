@@ -1,10 +1,17 @@
 import { Suspense } from "react";
-import { DeskBackdrop } from "./desk-backdrop";
-import { LoginCard } from "./login-card";
+import { DeskBackdrop } from "@/components/auth/desk-backdrop";
+import { LoginCard } from "@/components/auth/login-card";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Sign in",
+  description: "Sign in to CodeHarem with Google or GitHub to manage your client projects.",
+  alternates: { canonical: "/login" },
+};
 
 export default function LoginPage({ searchParams }: PageProps<"/login">) {
   return (
-    <main className="relative isolate flex min-h-dvh flex-1 items-center justify-center bg-ink px-5 py-16 text-white">
+    <main className="relative isolate flex min-h-dvh flex-1 items-center justify-center bg-background px-5 py-16 text-foreground md:px-10 lg:px-16">
       <DeskBackdrop />
       <LoginCard
         error={
